@@ -29,7 +29,9 @@ window.addEventListener('scroll', () => {
 hamburger.addEventListener('click', () => {
   hamburger.classList.toggle('open');
   navLinks.classList.toggle('open');
-  document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+  const isOpen = navLinks.classList.contains('open');
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+  hamburger.setAttribute('aria-expanded', isOpen);
 });
 
 // Close menu on nav-link click
@@ -38,6 +40,7 @@ document.querySelectorAll('.nav-link').forEach(link => {
     hamburger.classList.remove('open');
     navLinks.classList.remove('open');
     document.body.style.overflow = '';
+    hamburger.setAttribute('aria-expanded', false);
   });
 });
 
@@ -47,6 +50,7 @@ document.addEventListener('click', (e) => {
     hamburger.classList.remove('open');
     navLinks.classList.remove('open');
     document.body.style.overflow = '';
+    hamburger.setAttribute('aria-expanded', false);
   }
 });
 
