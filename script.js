@@ -152,83 +152,7 @@ document.querySelectorAll('.magnetic-btn').forEach(btn => {
   });
 });
 
-// ===== HERO IMAGE FALLBACK =====
-// If hero.png doesn't exist, show a placeholder gradient
-const heroImg = document.getElementById('heroImg');
-if (heroImg) {
-  heroImg.addEventListener('error', () => {
-    heroImg.style.display = 'none';
-
-    const placeholder = document.createElement('div');
-    placeholder.style.cssText = `
-      width: 100%;
-      aspect-ratio: 4/3;
-      background: linear-gradient(135deg, #0d0d0d 0%, #1a0a00 35%, #0d0d0d 70%, #130800 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 16px;
-      border-radius: inherit;
-      position: relative;
-      overflow: hidden;
-    `;
-
-    // Add animated code lines
-    for (let i = 0; i < 8; i++) {
-      const line = document.createElement('div');
-      const widths = [60, 80, 40, 90, 55, 75, 45, 65];
-      line.style.cssText = `
-        height: 2px;
-        width: ${widths[i]}%;
-        background: linear-gradient(90deg, rgba(249,115,22,${0.1 + i * 0.05}), transparent);
-        border-radius: 2px;
-        animation: codeLine ${1.5 + i * 0.2}s ease-in-out infinite alternate;
-      `;
-      placeholder.appendChild(line);
-    }
-
-    // Central icon
-    const icon = document.createElement('div');
-    icon.style.cssText = `
-      position: absolute;
-      font-size: 4rem;
-      opacity: 0.6;
-      filter: drop-shadow(0 0 24px rgba(249,115,22,0.5));
-    `;
-    icon.textContent = '💻';
-    placeholder.appendChild(icon);
-
-    // Add glow circles
-    for (let i = 0; i < 3; i++) {
-      const circle = document.createElement('div');
-      circle.style.cssText = `
-        position: absolute;
-        width: ${80 + i * 40}px;
-        height: ${80 + i * 40}px;
-        border: 1px solid rgba(249,115,22,${0.15 - i * 0.04});
-        border-radius: 50%;
-        animation: expandRing ${2 + i * 0.5}s ease-out infinite;
-        animation-delay: ${i * 0.6}s;
-      `;
-      placeholder.appendChild(circle);
-    }
-
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes codeLine {
-        to { opacity: 0.3; transform: scaleX(0.8); }
-      }
-      @keyframes expandRing {
-        0% { transform: scale(1); opacity: 0.6; }
-        100% { transform: scale(2.5); opacity: 0; }
-      }
-    `;
-    document.head.appendChild(style);
-
-    heroImg.parentElement.insertBefore(placeholder, heroImg);
-  });
-}
+// (Hero image removed — cinematic centered layout)
 
 // ===== ACTIVE NAV LINK ON SCROLL =====
 const sections = document.querySelectorAll('section[id], .split-section[id]');
@@ -250,13 +174,7 @@ const sectionObserver = new IntersectionObserver((entries) => {
 
 sections.forEach(s => sectionObserver.observe(s));
 
-// ===== PAGE LOAD — TRIGGER HERO ANIMATIONS =====
-window.addEventListener('load', () => {
-  // Mark all hero reveals as visible immediately
-  document.querySelectorAll('.hero .reveal-up, .hero .reveal-fade').forEach(el => {
-    setTimeout(() => el.classList.add('visible'), 100);
-  });
-});
+// Hero animations handled by CSS @keyframes (hero-anim class)
 
 // ===== CURSOR GLOW EFFECT (Desktop only) =====
 if (window.matchMedia('(pointer: fine)').matches) {
